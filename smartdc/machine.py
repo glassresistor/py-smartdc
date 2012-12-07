@@ -127,7 +127,9 @@ class Machine(object):
         return not self.__eq__(other)
     
     def __hash__(self):
-        return uuid.UUID(self.id).int
+        if not hasattr(self, '_hash'):
+            self._hash = uuid.UUID(self.id).int
+        return self._hash
     
     def _save(self, data):
         """
